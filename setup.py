@@ -19,7 +19,7 @@ def get_version(fname):
 setup(
     name = 'flamp',
     version = get_version('flamp/__init__.py'),
-    description = 'Faster linear algebra with multible precision',
+    description = 'Faster linear algebra with multiple precision',
     long_description = readme(),
     long_description_content_type = 'text/markdown',
     author = 'Clemens Hofreither',
