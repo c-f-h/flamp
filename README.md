@@ -1,4 +1,5 @@
-# flamp - Faster linear algebra with multible precision
+
+# flamp - Faster linear algebra with multible precision [![Build Status](https://github.com/c-f-h/flamp/actions/workflows/python-package.yml/badge.svg)](https://github.com/c-f-h/flamp/actions/workflows/python-package.yml)
 
 `flamp` contains ports of many real and complex linear algebra routines from
 the [`mpmath`](https://mpmath.org/) package, but using numpy object arrays
