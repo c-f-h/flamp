@@ -267,6 +267,12 @@ def test_prec():
     flamp.set_dps(54)
     assert flamp.get_dps() == 54
 
+def test_to_mp():
+    x = flamp.to_mp([3.4, 5.6])
+    assert x.shape == (2,) and x.dtype == 'O' and np.allclose(to_fp(x), [3.4, 5.6])
+    x = flamp.to_mp(np.arange(10))
+    assert x.shape == (10,) and x.dtype == 'O' and x[4] == 4
+
 def test_linspace():
     x = flamp.linspace(3, 5, 17)
     assert np.allclose(to_fp(x), np.linspace(3, 5, 17))

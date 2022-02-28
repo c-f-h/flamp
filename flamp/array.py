@@ -48,6 +48,10 @@ def contains_complex(A):
 
 def to_mp(A):
     """Ensures an array contains mpf or mpc numbers. Always copies the input."""
+    A = np.asanyarray(A)
+    if issubclass(A.dtype.type, numbers.Integral):
+        # mpfr cannot deal with numpy fixed-width integer types - convert to Python int
+        return np.vectorize(lambda x: gmpy2.mpfr(int(x)))(A)
     if contains_complex(A):
         return np.vectorize(gmpy2.mpc)(A)
     else:
