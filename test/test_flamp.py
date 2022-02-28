@@ -252,3 +252,17 @@ def test_eig_tr_r():
     R = np.triu(np.ones((3, 3)))
     U = flamp.eigen.eig_tr_r(gmpy2, gmpy2.mpfr(1) * R)
     assert np.allclose(to_fp(U), [[1, -1, 1], [0, 0, 0], [0, 0, 0]])
+
+
+### utility
+
+def test_prec():
+    assert flamp.get_precision() == 53
+    assert flamp.get_dps() == 15
+    with flamp.extraprec(336 - flamp.get_precision()):
+        assert flamp.get_precision() == 336
+        assert flamp.get_dps() == 100
+    flamp.set_precision(88)
+    assert flamp.get_precision() == 88
+    flamp.set_dps(54)
+    assert flamp.get_dps() == 54

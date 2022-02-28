@@ -20,6 +20,38 @@ gmpy2.precision = lambda: gmpy2.get_context().precision
 # unit roundoff
 gmpy2.epsilon   = lambda: ldexp(gmpy2.mpf(1), 1 - gmpy2.precision())
 
+def prec_to_dps(n):
+    """Return number of accurate decimals that can be represented
+    with a precision of n bits."""
+    return max(1, int(round(int(n)/3.3219280948873626)-1))
+
+def dps_to_prec(n):
+    """Return the number of bits required to represent n decimals
+    accurately."""
+    return max(1, int(round((int(n)+1)*3.3219280948873626)))
+
+def get_precision():
+    """Return the current precision in binary digits."""
+    return gmpy2.get_context().precision
+
+def set_precision(prec):
+    """Set the working precision in binary digits."""
+    gmpy2.get_context().precision = prec
+
+def get_dps():
+    """Return the current precision in decimal digits (approximate)."""
+    return prec_to_dps(get_precision())
+
+def set_dps(dps):
+    """Set the working precision in decimal digits (approximate)."""
+    set_precision(dps_to_prec(dps))
+
+def extraprec(n):
+    """Return a context manager (for use in a `with` statement) which
+    temporarily increases the working precision by the given amount."""
+    prec = get_precision()
+    return gmpy2.local_context(precision=prec + n)
+
 
 import functools
 from . import linalg
