@@ -71,4 +71,4 @@ for orig in [
     _func.__doc__ = orig.__doc__
     globals()[orig.__name__] = _func
 
-from .array import zeros, ones, empty, eye, vector_norm, to_mp
+from .array import zeros, ones, empty, eye, linspace, vector_norm, to_mp

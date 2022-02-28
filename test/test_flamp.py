@@ -266,3 +266,9 @@ def test_prec():
     assert flamp.get_precision() == 88
     flamp.set_dps(54)
     assert flamp.get_dps() == 54
+
+def test_linspace():
+    x = flamp.linspace(3, 5, 17)
+    assert np.allclose(to_fp(x), np.linspace(3, 5, 17))
+    x = flamp.linspace(4.5, -3.8, 7, endpoint=False)
+    assert np.allclose(to_fp(x), np.linspace(4.5, -3.8, 7, endpoint=False))

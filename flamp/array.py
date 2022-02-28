@@ -23,6 +23,20 @@ def eye(n):
     np.fill_diagonal(I, one)
     return I
 
+def linspace(start, stop, num, endpoint=True):
+    """Return an array of evenly spaced multiprecision numbers over a specified interval.
+
+    This behaves like the numpy version.
+    """
+    if endpoint:
+        if num == 1:
+            x = zeros(1)
+        x = np.arange(num) / gmpy2.mpf(num - 1)
+    else:
+        x = np.arange(num) / gmpy2.mpf(num)
+    start, stop = gmpy2.mpfr(start), gmpy2.mpfr(stop)
+    return (stop - start) * x + start
+
 def swap_rows(A, i, j):
     """Swap rows i and j of 2D numpy array."""
     A[[i, j]] = A[[j, i]]
