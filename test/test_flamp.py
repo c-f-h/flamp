@@ -31,6 +31,106 @@ def test_qr_complex():
     assert np.allclose(to_cpx(Q @ R), A)
     assert np.all(np.tril(R, -1) == 0)
 
+def test_inverse_real():
+    n = 5
+    A = np.random.rand(n, n)
+    AA = mpfr(1) * A
+    Ainv = flamp.inverse(AA)
+    assert A.shape == (n, n)
+    assert np.allclose(to_fp(Ainv @ A), np.eye(n))
+
+def test_inverse_complex():
+    n = 5
+    A = np.random.rand(n, n) + 1j * np.random.rand(n, n)
+    AA = mpfr(1) * A
+    Ainv = flamp.inverse(AA)
+    assert A.shape == (n, n)
+    assert np.allclose(to_cpx(Ainv @ A), np.eye(n))
+
+def test_lu_solve_real():
+    n = 5
+    A, b = np.random.rand(n, n), np.random.rand(n)
+    AA = mpfr(1) * A
+    x = flamp.lu_solve(AA, b)
+    assert x.shape == (n,)
+    assert np.allclose(to_fp(A @ x), b)
+
+def test_lu_solve_real_block():
+    n = 5
+    A, b = np.random.rand(n, n), np.random.rand(n, 3)
+    AA = mpfr(1) * A
+    x = flamp.lu_solve(AA, b)
+    assert x.shape == (n, 3)
+    assert np.allclose(to_fp(A @ x), b)
+
+def test_lu_solve_complex():
+    n = 5
+    A, b = np.random.rand(n, n) + 1j * np.random.rand(n, n), np.random.rand(n)
+    AA = mpfr(1) * A
+    x = flamp.lu_solve(AA, b)
+    assert x.shape == (n,)
+    assert np.allclose(to_cpx(A @ x), b)
+
+def test_lu():
+    n = 5
+    A = np.random.rand(n, n) + 1j * np.random.rand(n, n)
+    AA = mpfr(1) * A
+    P, L, U = flamp.lu(AA)
+    assert np.allclose(to_cpx(P @ AA), to_cpx(L @ U))
+
+def test_cholesky_solve_real():
+    n = 5
+    A, b = np.random.rand(n, n), np.random.rand(n)
+    A = A.T @ A
+    AA = mpfr(1) * A
+    x = flamp.cholesky_solve(AA, b)
+    assert x.shape == (n,)
+    assert np.allclose(to_fp(A @ x), b)
+
+def test_cholesky_solve_real_block():
+    n = 5
+    A, b = np.random.rand(n, n), np.random.rand(n, 3)
+    A = A.T @ A
+    AA = mpfr(1) * A
+    x = flamp.cholesky_solve(AA, b)
+    assert x.shape == (n, 3)
+    assert np.allclose(to_fp(A @ x), b)
+
+def test_qr_solve_real():
+    n = 5
+    A, b = np.random.rand(n, n), np.random.rand(n)
+    AA = mpfr(1) * A
+    x = flamp.qr_solve(AA, b)
+    assert x.shape == (n,)
+    assert np.allclose(to_fp(A @ x), b)
+
+def test_qr_solve_real_block():
+    n = 5
+    A, b = np.random.rand(n, n), np.random.rand(n, 3)
+    AA = mpfr(1) * A
+    x = flamp.qr_solve(AA, b)
+    assert x.shape == (n, 3)
+    assert np.allclose(to_fp(A @ x), b)
+
+def test_solve_real_overdet():
+    n = 5
+    A, b = np.random.rand(n + 2, n), np.random.rand(n + 2, 3)
+    AA = mpfr(1) * A
+    x = flamp.qr_solve(AA, b)
+    x2 = flamp.lu_solve(AA, b)
+    assert x.shape == (n, 3)
+    assert x2.shape == (n, 3)
+    assert np.allclose(to_fp(x), to_fp(x2))
+
+def test_det():
+    n = 5
+    E = np.random.rand(n)   # random eigenvalues
+    U = mpfr(1) * np.random.rand(n, n)
+    Uinv = flamp.inverse(U)
+    A = U @ np.diag(E) @ Uinv
+    det = flamp.det(A)
+    assert np.allclose(to_fp(det), np.prod(E))
+
 ### eigen
 
 def test_eig_real():

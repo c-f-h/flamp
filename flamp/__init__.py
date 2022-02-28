@@ -28,7 +28,9 @@ from . import eigen_symmetric
 
 # import functions while fixing ctx argument to gmpy2
 for orig in [
-        linalg.qr,
+        linalg.lu_solve, linalg.qr_solve, linalg.cholesky_solve,
+        linalg.inverse, linalg.det,
+        linalg.lu, linalg.qr, linalg.cholesky,
         eigen.eig, eigen.hessenberg, eigen.schur,
         eigen_symmetric.eigh, eigen_symmetric.svd,
     ]:
@@ -37,4 +39,4 @@ for orig in [
     _func.__doc__ = orig.__doc__
     globals()[orig.__name__] = _func
 
-from .array import zeros, ones, eye
+from .array import zeros, ones, empty, eye, vector_norm
