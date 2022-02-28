@@ -1,6 +1,7 @@
 __version__ = '1.0.0'
 
 import gmpy2
+import numpy as np
 
 def ldexp(x, n):
     # work around a bug in gmpy2:
@@ -72,3 +73,15 @@ for orig in [
     globals()[orig.__name__] = _func
 
 from .array import zeros, ones, empty, eye, linspace, vector_norm, to_mp
+
+# array-aware versions of some special functions
+
+exp  = np.vectorize(gmpy2.exp)
+sqrt = np.vectorize(gmpy2.sqrt)
+sin  = np.vectorize(gmpy2.sin)
+cos  = np.vectorize(gmpy2.cos)
+tan  = np.vectorize(gmpy2.tan)
+sinh = np.vectorize(gmpy2.sinh)
+cosh = np.vectorize(gmpy2.cosh)
+tanh = np.vectorize(gmpy2.tanh)
+square = np.vectorize(gmpy2.square)
