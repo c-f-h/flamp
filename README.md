@@ -9,3 +9,60 @@ typically by a factor of 10x-15x faster than those in `mpmath`.
 
 `flamp` is based on `mpmath` by Fredrik Johansson and the matrix algorithms
 by Timo Hartmann contained therein. `flamp` is BSD-licensed.
+
+## List of functions
+
+The following is a list of supported functions by category. All matrix and
+vector arguments should be supplied as numpy arrays of `gmpy2` numbers,
+although standard floating point numpy arrays will be automatically converted
+in most cases.
+
+Refer to the docstrings for further information.
+
+### Linear algebra
+
+These behave essentially like the corresponding functions in `mpmath`, with
+some slight modifications. For instance, all functions for solving linear
+systems accept either a single vector or an array of vectors for the right-hand
+side.
+
+- `lu_solve(A, b)` - solve a linear system using LU decomposition
+- `qr_solve(A, b)` - solve a linear system using QR decomposition
+- `cholesky_solve(A, b)` - solve a symmetric positive definite system using Cholesky decomposition
+- `L_solve(L, b, unit_diag=False)` - solve a lower triangular system
+- `U_solve(U, y)` - solve an upper triangular system
+- `inverse(A)` - compute inverse of a square matrix
+- `det(A)` - compute determinant of a square matrix
+- `lu(A)` - compute LU decomposition of a square matrix
+- `qr(A, mode='full')` - compute QR decomposition of a matrix; mode=`full`, `reduced`, `raw`
+- `cholesky(A)` - compute Cholesky decomposition of a symmetric positive definite matrix
+- `eig(A, left=False, right=True)` - compute eigenvalues and (optionally) left and right eigenvectors of a matrix
+- `eigh(A, eigvals_only=False)` - compute eigenvalues and (optionally) the orthonormal eigenvectors of a real symmetric or complex Hermitian square matrix
+- `hessenberg(A)` - compute Hessenberg decomposition `(Q, R)` of a square matrix
+- `schur(A)` - compute Schur decomposition of a square matrix
+- `svd(A, full_matrices=False, compute_uv=True)` - compute singular value decomposition (singular values and optionally the left and right singular vectors) of a matrix
+
+### Array functions
+
+Most of these behave essentially like their numpy counterparts, but work with
+`gmpy2` extended precision numbers.
+
+- `zeros(shape)`
+- `ones(shape)`
+- `empty(shape)`
+- `eye(n)`
+- `linspace(start, stop, num, endpoint=True)`
+- `vector_norm(x)` - computes Euclidean norm of a vector
+- `to_mp(A)` - converts an arbitrary numpy array (or list/tuple) into an array of `gmpy2` numbers, copying the input
+
+### Utility functions
+
+These functions are used to manipulate the working precision of the `gmpy2` library.
+
+- `prec_to_dps(n)` - number of accurate decimals that can be represented with a precision of `n` bits
+- `dps_to_prec(n)` - number of bits required to represent `n` decimals accurately
+- `get_precision()` - get the current precision in binary digits
+- `set_precision(prec)` - set the working precision in binary digits
+- `get_dps()` get the current precision in decimal digits (approximate)
+- `set_dps(dps)` - set the working precision in decimal digits (approximate)
+- `extraprec(n)` - returns a context manager (for use in a `with` statement) which temporarily increases the working precision by the given amount
