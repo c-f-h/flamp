@@ -1,5 +1,5 @@
 
-# flamp - Faster linear algebra with multiple precision [![Build Status](https://github.com/c-f-h/flamp/actions/workflows/python-package.yml/badge.svg)](https://github.com/c-f-h/flamp/actions/workflows/python-package.yml)
+# flamp - Faster linear algebra with multiple precision [![Build Status](https://github.com/c-f-h/flamp/actions/workflows/python-package.yml/badge.svg)](https://github.com/c-f-h/flamp/actions/workflows/python-package.yml) [![PyPI version](https://badge.fury.io/py/flamp.svg)](https://badge.fury.io/py/flamp)
 
 `flamp` contains ports of many real and complex linear algebra routines from
 the [`mpmath`](https://mpmath.org/) package, but using numpy object arrays
@@ -9,6 +9,15 @@ typically by a factor of 10x-15x faster than those in `mpmath`.
 
 `flamp` is based on `mpmath` by Fredrik Johansson and the matrix algorithms
 by Timo Hartmann contained therein. `flamp` is BSD-licensed.
+
+## Installation
+
+The package is written in pure Python and can simply be installed by
+
+    pip install flamp
+
+Its only dependencies are `numpy` and `gmpy2`, both of which have pre-built
+packages readily available.
 
 ## List of functions
 
