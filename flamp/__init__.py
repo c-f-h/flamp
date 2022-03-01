@@ -62,6 +62,7 @@ from . import eigen_symmetric
 # import functions while fixing ctx argument to gmpy2
 for orig in [
         linalg.lu_solve, linalg.qr_solve, linalg.cholesky_solve,
+        linalg.L_solve, linalg.U_solve,
         linalg.inverse, linalg.det,
         linalg.lu, linalg.qr, linalg.cholesky,
         eigen.eig, eigen.hessenberg, eigen.schur,

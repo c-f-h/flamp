@@ -44,7 +44,7 @@ def LU_decomp(ctx, A, overwrite=False):
         raise ZeroDivisionError('matrix is numerically singular')
     return A, p
 
-def L_solve(ctx, L, b, p=None, unit_diag=True):
+def L_solve(ctx, L, b, p=None, unit_diag=False):
     """
     Solve the lower part of a LU factorized matrix for y.
     If `unit_diag` is True, the diagonal of L is assumed to be 1.
@@ -120,7 +120,7 @@ def lu_solve(ctx, A, b, real=False):
     else:
         # LU factorization
         A, p = LU_decomp(ctx, A)
-        b = L_solve(ctx, A, b, p)
+        b = L_solve(ctx, A, b, p, unit_diag=True)
         x = U_solve(ctx, A, b)
     return x
 
@@ -174,7 +174,7 @@ def inverse(ctx, A):
     n = A.shape[0]
     for i in range(n):
         e = unitvector(ctx, n, i)
-        y = L_solve(ctx, A, e, p)
+        y = L_solve(ctx, A, e, p, unit_diag=True)
         B[:, i] = U_solve(ctx, A, y)
     return B
 
