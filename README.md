@@ -12,7 +12,7 @@ by Timo Hartmann contained therein. `flamp` is BSD-licensed.
 
 ## List of functions
 
-The following is a list of supported functions by category. All matrix and
+The following is a list of supported functions in the `flamp` module by category. All matrix and
 vector arguments should be supplied as numpy arrays of `gmpy2` numbers,
 although standard floating point numpy arrays will be automatically converted
 in most cases.
@@ -66,3 +66,19 @@ These functions are used to manipulate the working precision of the `gmpy2` libr
 - `get_dps()` get the current precision in decimal digits (approximate)
 - `set_dps(dps)` - set the working precision in decimal digits (approximate)
 - `extraprec(n)` - returns a context manager (for use in a `with` statement) which temporarily increases the working precision by the given amount
+
+### Array-aware special functions
+
+These functions work much like the corresponding functions in numpy in that they
+automatically distribute over numpy arrays while computing in extended
+precision.
+
+- `exp(x)`
+- `sqrt(x)`
+- `sin(x)`
+- `cos(x)`
+- `tan(x)`
+- `sinh(x)`
+- `cosh(x)`
+- `tanh(x)`
+- `square(x)`
