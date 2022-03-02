@@ -7,8 +7,9 @@ containing `gmpy2` multiprecision floating point numbers instead of the
 `mpmath` floating point numbers. The resulting linear algebra routines are
 typically by a factor of 10x-15x faster than those in `mpmath`.
 
-`flamp` is based on `mpmath` by Fredrik Johansson and the matrix algorithms
-by Timo Hartmann contained therein. `flamp` is BSD-licensed.
+`flamp` is based on `mpmath` by Fredrik Johansson and mpmath contributors;
+in particular, the eigenvalue algorithms therein are by Timo Hartmann.
+`flamp` is BSD-licensed.
 
 ## Installation
 
