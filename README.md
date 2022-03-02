@@ -20,6 +20,38 @@ The package is written in pure Python and can simply be installed by
 Its only dependencies are `numpy` and `gmpy2`, both of which have pre-built
 packages readily available.
 
+## Benchmarks
+
+Here are some timings for computing the eigenvalues and right eigenvectors of
+an n x n real matrix with `prec` binary digits. Results using `mpmath`, `flamp`
+and [`arb`](https://arblib.org/) via the
+[`python-flint`](https://github.com/fredrik-johansson/python-flint) bindings
+are reported. Percentages are relative to the `arb` baseline.
+
+    n = 50 prec = 169
+    mpmath:  12.13s  (2766.1%)
+    flamp:    1.13s  (257.4%)
+    arb:      0.44s  (100.0%)
+
+    n = 100 prec = 169
+    mpmath:  90.55s  (2929.1%)
+    flamp:    8.55s  (276.4%)
+    arb:      3.09s  (100.0%)
+
+    n = 50 prec = 336
+    mpmath:  14.20s  (2073.9%)
+    flamp:    1.57s  (229.7%)
+    arb:      0.68s  (100.0%)
+
+    n = 100 prec = 336
+    mpmath: 106.47s  (2177.7%)
+    flamp:   11.59s  (237.1%)
+    arb:      4.89s  (100.0%)
+
+Conclusion: for raw speed, use `arb` which is written in pure C. If you want a
+pure Python package which provides reasonable performance (usually within a
+factor of ~2.5x of `arb`), use `flamp`.
+
 ## List of functions
 
 The following is a list of supported functions in the `flamp` module by category. All matrix and
