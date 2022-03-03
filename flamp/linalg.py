@@ -27,6 +27,8 @@ def LU_decomp(ctx, A, overwrite=False):
             s = ctx.fsum([abs(A[k,l]) for l in range(j, n)])
             if abs(s) <= tol:
                 raise ZeroDivisionError('matrix is numerically singular')
+            elif ctx.isnan(s):
+                raise ValueError('matrix contains nans')
             current = 1/s * abs(A[k,j])
             if current > biggest: # TODO: what if equal?
                 biggest = current

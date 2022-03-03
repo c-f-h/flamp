@@ -14,6 +14,7 @@ def ldexp(x, n):
 # monkey-patch for compatibility with mpmath context
 gmpy2.mpf = gmpy2.mpfr
 gmpy2.isinf = gmpy2.is_infinite
+gmpy2.isnan = gmpy2.is_nan
 gmpy2.ldexp = ldexp
 
 # precision in binary digits
