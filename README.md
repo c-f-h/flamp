@@ -105,7 +105,7 @@ These functions are used to manipulate the working precision of the `gmpy2` libr
 - `dps_to_prec(n)` - number of bits required to represent `n` decimals accurately
 - `get_precision()` - get the current precision in binary digits
 - `set_precision(prec)` - set the working precision in binary digits
-- `get_dps()` get the current precision in decimal digits (approximate)
+- `get_dps()` - get the current precision in decimal digits (approximate)
 - `set_dps(dps)` - set the working precision in decimal digits (approximate)
 - `extraprec(n)` - returns a context manager (for use in a `with` statement) which temporarily increases the working precision by the given amount
 
@@ -124,3 +124,6 @@ precision.
 - `cosh(x)`
 - `tanh(x)`
 - `square(x)`
+- `log(x)`
+- `log2(x)`
+- `log10(x)`
