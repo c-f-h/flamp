@@ -406,7 +406,7 @@ def qr(ctx, A, mode='full'):
     # check for complex data type
     cmplx = contains_complex(A)
 
-    tau = np.empty(n, dtype=A.dtype)
+    tau = empty(n)
     A = to_mp(A)
 
     # ---------------
@@ -515,7 +515,7 @@ def qr(ctx, A, mode='full'):
         p = n
 
     # add columns to A if needed and initialize
-    A = np.hstack((A, np.empty((m, p - n), dtype=A.dtype)))
+    A = np.hstack((A, zeros((m, p - n))))
     for j in range(p):
         A[j,j] = one
         for i in range(j):

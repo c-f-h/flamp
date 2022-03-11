@@ -20,6 +20,11 @@ def test_qr_real():
     assert np.allclose(to_fp(Q.T @ Q), np.eye(n))
     assert np.allclose(to_fp(Q @ R), A)
     assert np.all(np.tril(R, -1) == 0)
+    ## special case: size 0 matrix
+    AA = flamp.zeros((4, 0))
+    Q, R = flamp.qr(AA)
+    assert np.allclose(to_fp(Q), np.eye(4))
+    assert R.shape == (4, 0)
 
 def test_qr_complex():
     n = 5
