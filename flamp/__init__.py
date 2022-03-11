@@ -74,19 +74,19 @@ for orig in [
     _func.__doc__ = orig.__doc__
     globals()[orig.__name__] = _func
 
-from .array import zeros, ones, empty, eye, linspace, vector_norm, to_mp
+from .array import zeros, ones, empty, eye, linspace, vector_norm, to_mp, _gmpy2_vectorize
 
 # array-aware versions of some special functions
 
-exp  = np.vectorize(gmpy2.exp)
-sqrt = np.vectorize(gmpy2.sqrt)
-sin  = np.vectorize(gmpy2.sin)
-cos  = np.vectorize(gmpy2.cos)
-tan  = np.vectorize(gmpy2.tan)
-sinh = np.vectorize(gmpy2.sinh)
-cosh = np.vectorize(gmpy2.cosh)
-tanh = np.vectorize(gmpy2.tanh)
-square = np.vectorize(gmpy2.square)
-log  = np.vectorize(gmpy2.log)
-log2 = np.vectorize(gmpy2.log2)
-log10 = np.vectorize(gmpy2.log10)
+exp    = _gmpy2_vectorize(gmpy2.exp)
+sqrt   = _gmpy2_vectorize(gmpy2.sqrt)
+sin    = _gmpy2_vectorize(gmpy2.sin)
+cos    = _gmpy2_vectorize(gmpy2.cos)
+tan    = _gmpy2_vectorize(gmpy2.tan)
+sinh   = _gmpy2_vectorize(gmpy2.sinh)
+cosh   = _gmpy2_vectorize(gmpy2.cosh)
+tanh   = _gmpy2_vectorize(gmpy2.tanh)
+square = _gmpy2_vectorize(gmpy2.square)
+log    = _gmpy2_vectorize(gmpy2.log)
+log2   = _gmpy2_vectorize(gmpy2.log2)
+log10  = _gmpy2_vectorize(gmpy2.log10)

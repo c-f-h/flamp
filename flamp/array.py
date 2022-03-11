@@ -46,16 +46,23 @@ def contains_complex(A):
     return any(isinstance(x, numbers.Complex) and not isinstance(x, numbers.Real)
             for x in A.flat)
 
+def _gmpy2_vectorize(func):
+    return np.vectorize(func, otypes=[object])  # avoid having to call the function first to determine the dtype
+
+_vectorized_mpfr = _gmpy2_vectorize(gmpy2.mpfr)
+_vectorized_mpc = _gmpy2_vectorize(gmpy2.mpc)
+# mpfr cannot deal with numpy fixed-width integer types - convert to Python int first
+_vectorized_int_to_mpfr = _gmpy2_vectorize(lambda x: gmpy2.mpfr(int(x)))
+
 def to_mp(A):
     """Ensures an array contains mpf or mpc numbers. Always copies the input."""
     A = np.asanyarray(A)
     if issubclass(A.dtype.type, numbers.Integral):
-        # mpfr cannot deal with numpy fixed-width integer types - convert to Python int
-        return np.vectorize(lambda x: gmpy2.mpfr(int(x)))(A)
+        return _vectorized_int_to_mpfr(A)
     if contains_complex(A):
-        return np.vectorize(gmpy2.mpc)(A)
+        return _vectorized_mpc(A)
     else:
-        return np.vectorize(gmpy2.mpfr)(A)
+        return _vectorized_mpfr(A)
 
 def vector_norm(x):
     """Compute Euclidean norm of vector `x`."""
